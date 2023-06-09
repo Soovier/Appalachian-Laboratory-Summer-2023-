@@ -177,7 +177,6 @@ public class ClusterExE {
 			List<String> lines = Files.readAllLines(Paths.get(mainFile));
 			int LinesPerFile = Math.round(lines.size() / K);
 			v1: for (int i = 1; i <= K; i++) {
-				// Directory + "\\" + "\\" + (GOT TO CURR FILE)
 				File currFile = new File(i + FillDesc + ending);
 				FileWriter fw = new FileWriter(currFile, true);
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -191,7 +190,7 @@ public class ClusterExE {
 						bw.write(line);
 						if (line.contains(">")) {
 							bw.newLine();
-							bw.write(lines.get(j));
+							bw.write(lines.get(j + 1));
 							j = j + 1;
 							counter = counter + 1;
 						}
