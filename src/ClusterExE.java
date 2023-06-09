@@ -15,15 +15,43 @@ public class ClusterExE {
 
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
+		String Directory = "C:/Users/Stephen Osunkunle/Desktop/Unix_Java"; // DEFAULT
+		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT
+		String FastaLocation = "12S_Combined.fa"; // DEFAULT
 		int K = 5;
-		String Directory = "C:/Users/Stephen Osunkunle/Desktop/Unix_Java";
+
 		ClusterExE test = new ClusterExE();
-		test.Input_TestData(K, "12S_Combined.tax", Directory, "TAX"); // tax
-		test.Input_TestData(K, "12S_Combined.fa", Directory, "FASTA"); // fasta
+		test.Prompt(K, Directory, TaxonomyLocation, FastaLocation); // Changes Default Values
+		test.Input_TestData(K, TaxonomyLocation, Directory, "TAX"); // tax
+		test.Input_TestData(K, FastaLocation, Directory, "FASTA"); // fasta
 		test.testData(K, Directory, "TAX");
 		test.testData(K, Directory, "FASTA");
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
+	}
+
+	/**
+	 * Takes Input In Order To Change The amount of splits, Location of the files
+	 * and the new directory of where you want these file to be placed at
+	 * 
+	 * @param K
+	 * @param mainDirectory
+	 * @param TaxDirect
+	 * @param FastaDirect
+	 */
+	public void Prompt(int K, String mainDirectory, String TaxDirect, String FastaDirect) {
+		Scanner UIS = new Scanner(System.in);
+		System.out.print("\t NOTE: PLEASE MAKE SLASHES FRONT '/' AND NOT BACK SLAHSES '\\' !! : \n\n");
+		System.out.print("What Directory Do You Want These Files To Be Placed At? ");
+		mainDirectory = UIS.nextLine();
+		System.out.print("Where Is The Taxonomy File Located?: ");
+		TaxDirect = UIS.nextLine();
+		System.out.print("Where Is The Fasta File Located?: ");
+		FastaDirect = UIS.nextLine();
+		System.out.print("How Many Parts Do You Want To Split The Data By? ");
+		K = UIS.nextInt();
+
+		UIS.close();
 	}
 
 	private List<String> TypeChecking(String Type) {
