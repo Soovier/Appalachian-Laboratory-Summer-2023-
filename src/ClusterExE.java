@@ -189,6 +189,12 @@ public class ClusterExE {
 					String line = lines.get(j);
 					if (!line.isEmpty()) {
 						bw.write(line);
+						if (line.contains(">")) {
+							bw.newLine();
+							bw.write(lines.get(j));
+							j = j + 1;
+							counter = counter + 1;
+						}
 						bw.newLine();
 					}
 				}
