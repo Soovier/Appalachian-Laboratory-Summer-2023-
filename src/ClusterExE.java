@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // This was made by Stephen Osunkunle 2023 Internship
-// Creates Files In The SAME DIRECTORY IT WAS FIRED IN!!
+// Creates Files In The SAME DIRECTORY (RELATIVE) IT WAS FIRED IN!!
 public class ClusterExE {
 
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class ClusterExE {
 		String Directory = "C:/Users/Stephen Osunkunle/Desktop/Unix_Java"; // DEFAULT
 		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT
 		String FastaLocation = "12S_Combined.fa"; // DEFAULT
-		int K = 5;
+		int K = 5; // DEFAULT
 
 		ClusterExE test = new ClusterExE();
 		test.Prompt(K, Directory, TaxonomyLocation, FastaLocation); // Changes Default Values
@@ -30,6 +30,7 @@ public class ClusterExE {
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
+
 
 	/**
 	 * Takes Input In Order To Change The amount of splits, Location of the files
@@ -78,7 +79,7 @@ public class ClusterExE {
 		String ending = "";
 
 		if (Type == "TAX") {
-			newFileName = "Trainig_Taxonomy";
+			newFileName = "Training_Taxonomy";
 			ending = ".tax";
 		} else if (Type == "FASTA") {
 			newFileName = "Training_Fasta";
