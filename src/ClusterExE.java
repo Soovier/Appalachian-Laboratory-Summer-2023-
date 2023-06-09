@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // This was made by Stephen Osunkunle 2023 Internship
+// Creates Files In The SAME DIRECTORY IT WAS FIRED IN!!
 public class ClusterExE {
 
 	public static void main(String[] args) {
@@ -41,9 +42,9 @@ public class ClusterExE {
 	 */
 	public void Prompt(int K, String mainDirectory, String TaxDirect, String FastaDirect) {
 		Scanner UIS = new Scanner(System.in);
-		System.out.print("\t NOTE: PLEASE MAKE SLASHES FRONT '/' AND NOT BACK SLAHSES '\\' !! : \n\n");
-		System.out.print("What Directory Do You Want These Files To Be Placed At? ");
-		mainDirectory = UIS.nextLine();
+//		System.out.print("\t NOTE: PLEASE MAKE SLASHES FRONT '/' AND NOT BACK SLAHSES '\\' !! : \n\n");
+//		System.out.print("What Directory Do You Want These Files To Be Placed At? ");
+//		mainDirectory = UIS.nextLine();
 		System.out.print("Where Is The Taxonomy File Located?: ");
 		TaxDirect = UIS.nextLine();
 		System.out.print("Where Is The Fasta File Located?: ");
@@ -88,7 +89,8 @@ public class ClusterExE {
 
 		try {
 			for (int i = 1; i <= K; i++) {
-				String trainData_Name = mainDirectory + "\\" + "\\" + i + newFileName + ending;
+//				String trainData_Name = mainDirectory + "\\" + "\\" + i + newFileName + ending;
+				String trainData_Name = i + newFileName + ending;
 				File trainedTaxfile = new File(trainData_Name);
 				if (trainedTaxfile.createNewFile()) {
 					System.out.printf("%s Data Has Been Made! \n", trainData_Name);
@@ -117,7 +119,8 @@ public class ClusterExE {
 				continue;
 			}
 
-			String currString = Directory + "\\" + "\\" + i + currentFileString + ending;
+//			String currString = Directory + "\\" + "\\" + i + currentFileString + ending;
+			String currString = i + currentFileString + ending;
 			File currentFile = new File(currString);
 			FileInputStream fileInputStream;
 			try {
@@ -154,9 +157,7 @@ public class ClusterExE {
 	 *                  all the files to go to
 	 */
 	public void Input_TestData(int K, String mainFile, String Directory, String type) {
-		File mainTax_File = new File(mainFile);
 		int counter = 0;
-		int TotalLineAmount = 0;
 
 		String FillDesc = "";
 		String ending = "";
@@ -172,16 +173,11 @@ public class ClusterExE {
 		}
 
 		try {
-			Scanner UIS = new Scanner(mainTax_File);
-			while (UIS.hasNextLine()) {
-				UIS.nextLine();
-				TotalLineAmount++;
-			}
-			UIS.close();
-			int LinesPerFile = Math.round(TotalLineAmount / K);
 			List<String> lines = Files.readAllLines(Paths.get(mainFile));
+			int LinesPerFile = Math.round(lines.size() / K);
 			v1: for (int i = 1; i <= K; i++) {
-				File currFile = new File(Directory + "\\" + "\\" + i + FillDesc + ending);
+				// Directory + "\\" + "\\" + (GOT TO CURR FILE)
+				File currFile = new File(i + FillDesc + ending);
 				FileWriter fw = new FileWriter(currFile, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				for (int j = counter; j < LinesPerFile * i; j++) {
