@@ -56,6 +56,7 @@ public class ClusterExE {
 		UIS.close();
 	}
 
+	@SuppressWarnings("rawtypes")
 	private List<String> TypeChecking(String Type) {
 		String newFileName = "";
 		String ending = "";
@@ -68,6 +69,7 @@ public class ClusterExE {
 		} else {
 			return null;
 		}
+		@SuppressWarnings("unchecked")
 		List<String> newString = new ArrayList();
 		newString.add(newFileName);
 		newString.add(ending);
