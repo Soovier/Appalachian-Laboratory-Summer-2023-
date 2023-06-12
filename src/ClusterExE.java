@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 // This was made by Stephen Osunkunle 2023 Internship
 // Creates Files In The SAME DIRECTORY (RELATIVE) IT WAS FIRED IN!!
@@ -17,16 +16,17 @@ public class ClusterExE {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		String Directory = "C:/Users/Stephen Osunkunle/Desktop/Unix_Java"; // DEFAULT
-		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT
-		String FastaLocation = "12S_Combined.fa"; // DEFAULT
-		int K = 5; // DEFAULT
+//		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT
+//		String FastaLocation = "12S_Combined.fa"; // DEFAULT
+//		int K = 5; // DEFAULT
 
 		ClusterExE test = new ClusterExE();
-		test.Prompt(K, Directory, TaxonomyLocation, FastaLocation); // Changes Default Values
-		test.Input_TestData(K, TaxonomyLocation, Directory, "TAX"); // tax
-		test.Input_TestData(K, FastaLocation, Directory, "FASTA"); // fasta
-		test.testData(K, Directory, "TAX");
-		test.testData(K, Directory, "FASTA");
+		test.Prompt(); // Changes Default Values
+
+		test.Input_TestData(Integer.parseInt(args[2]), args[0], Directory, "TAX"); // tax
+		test.Input_TestData(Integer.parseInt(args[2]), args[1], Directory, "FASTA"); // fasta
+		test.testData(Integer.parseInt(args[2]), Directory, "TAX");
+		test.testData(Integer.parseInt(args[2]), Directory, "FASTA");
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
@@ -41,19 +41,10 @@ public class ClusterExE {
 	 * @param TaxDirect
 	 * @param FastaDirect
 	 */
-	public void Prompt(int K, String mainDirectory, String TaxDirect, String FastaDirect) {
-		Scanner UIS = new Scanner(System.in);
-//		System.out.print("\t NOTE: PLEASE MAKE SLASHES FRONT '/' AND NOT BACK SLAHSES '\\' !! : \n\n");
-//		System.out.print("What Directory Do You Want These Files To Be Placed At? ");
-//		mainDirectory = UIS.nextLine();
-		System.out.print("Where Is The Taxonomy File Located?: ");
-		TaxDirect = UIS.nextLine();
-		System.out.print("Where Is The Fasta File Located?: ");
-		FastaDirect = UIS.nextLine();
-		System.out.print("How Many Parts Do You Want To Split The Data By? ");
-		K = UIS.nextInt();
-
-		UIS.close();
+	public void Prompt() {
+		System.out.println("\t Where Is The Taxonomy File Located?: ");
+		System.out.println("\t Where Is The Fasta File Located?: ");
+		System.out.println("\t How Many Parts Do You Want To Split The Data By? ");
 	}
 
 	@SuppressWarnings("rawtypes")
