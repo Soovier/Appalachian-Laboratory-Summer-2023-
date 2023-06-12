@@ -17,10 +17,6 @@ public class VsearchToMetaxa_3 {
 //		String alignment = "1TestAlignments.txt";
 //		String output = "1OutputTest.tax";
 
-		for (int i = 0; i < args.length; i++) { // Removes the -v, -t, -o before firing
-			args[i] = args[i].substring(2);
-		}
-
 		test.TrimAlignment(args[0]); // Aligned Fasta Data
 		test.TrimTrainedTaxonomy(args[1]); // Trained Taxonomy File Goes Here
 		test.OutputFile(args[2]);
