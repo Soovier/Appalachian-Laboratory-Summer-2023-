@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 // Stephen Osunkunle Cross Validation
-public class ClusterJ {
+public class WindowClusterJ {
 	static String newFileName_Fasta = "KParts_FastaFile.txt";
 	static String newFileName_Tax = "KParts_TaxFile.txt";
 
@@ -24,7 +24,7 @@ public class ClusterJ {
 //		FastaFile = 12C_Combined[FASTA].txt;
 //		TaxFile = 12C_Combinded[TAX].txt
 		ClusterProperties clusterProp = new ClusterProperties();
-		ClusterJ mainCluster = new ClusterJ();
+		WindowClusterJ mainCluster = new WindowClusterJ();
 		mainCluster.Prompt();
 		ArrayList<String[]> tax_FILE = clusterProp.ReadFile_TAX(TaxFileName, 1, "");
 		ArrayList<String[]> fasta_FILE = clusterProp.ReadFile_FASTA(FastaFileName);

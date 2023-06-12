@@ -12,14 +12,13 @@ import java.util.Scanner;
 public class VsearchToMetaxa_3 {
 	public static void main(String[] args) {
 		VsearchToMetaxa_3 test = new VsearchToMetaxa_3();
-
 //		String trainTax = "1Training_Taxonomy.tax";
 //		String alignment = "1TestAlignments.txt";
 //		String output = "1OutputTest.tax";
 
 		test.TrimAlignment(args[0]); // Aligned Fasta Data
 		test.TrimTrainedTaxonomy(args[1]); // Trained Taxonomy File Goes Here
-		test.OutputFile(args[2]);
+		test.OutputFile(args[2]); // Output file
 	}
 
 	/**
