@@ -95,7 +95,6 @@ public class ClusterExE {
 				continue;
 			}
 
-//			String currString = Directory + "\\" + "\\" + i + currentFileString + ending;
 			String currString = i + currentFileString + ending;
 			File currentFile = new File(currString);
 			FileInputStream fileInputStream;
@@ -108,7 +107,7 @@ public class ClusterExE {
 				fileInputStream.close();
 
 				String fileContent = new String(byteValue, "UTF-8");
-				pw.println((fileContent));
+				pw.print((fileContent));
 				pw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
