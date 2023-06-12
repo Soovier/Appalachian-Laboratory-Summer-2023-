@@ -16,12 +16,10 @@ public class ClusterExE {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		String Directory = "C:/Users/Stephen Osunkunle/Desktop/Unix_Java"; // DEFAULT
-//		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT
-//		String FastaLocation = "12S_Combined.fa"; // DEFAULT
-//		int K = 5; // DEFAULT
-
+//		String TaxonomyLocation = "12S_Combined.tax"; // DEFAULT args[0]
+//		String FastaLocation = "12S_Combined.fa"; // DEFAULT args[1]
+//		int K = 5; // DEFAULT args[2]
 		ClusterExE test = new ClusterExE();
-		test.Prompt(); // Changes Default Values
 
 		test.Input_TestData(Integer.parseInt(args[2]), args[0], Directory, "TAX"); // tax
 		test.Input_TestData(Integer.parseInt(args[2]), args[1], Directory, "FASTA"); // fasta
@@ -29,22 +27,6 @@ public class ClusterExE {
 		test.testData(Integer.parseInt(args[2]), Directory, "FASTA");
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
-	}
-
-
-	/**
-	 * Takes Input In Order To Change The amount of splits, Location of the files
-	 * and the new directory of where you want these file to be placed at
-	 * 
-	 * @param K
-	 * @param mainDirectory
-	 * @param TaxDirect
-	 * @param FastaDirect
-	 */
-	public void Prompt() {
-		System.out.println("\t Where Is The Taxonomy File Located?: ");
-		System.out.println("\t Where Is The Fasta File Located?: ");
-		System.out.println("\t How Many Parts Do You Want To Split The Data By? ");
 	}
 
 	@SuppressWarnings("rawtypes")
