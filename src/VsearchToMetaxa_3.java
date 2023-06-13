@@ -17,7 +17,7 @@ public class VsearchToMetaxa_3 {
 //		String output = "1OutputTest.tax";
 
 		test.TrimAlignment(args[0]); // Aligned Fasta Data
-		test.TrimTrainedTaxonomy(args[1]); // Trained Taxonomy File Goes Here
+		test.TrimTrainedTaxonomy(args[1]); // Orignal Data Base Taxonomy
 		test.OutputFile(args[2]); // Output file
 	}
 
@@ -34,18 +34,18 @@ public class VsearchToMetaxa_3 {
 			Scanner UIS = new Scanner(trained_Taxonomy);
 			while (UIS.hasNextLine()) {
 				String line = UIS.nextLine();
-				if (line.equals("")) { // IF WE FIND ANY EMPTY LINES WE SKIP
-					continue;
-				}
+//				if (line.equals("")) { // IF WE FIND ANY EMPTY LINES WE SKIP
+//					continue;
+//				}
 				TaxDct.put(line.split("\t")[0], line.strip().split("\t")[1]);
 			}
 			UIS.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		for (Map.Entry<String, String> e : TaxDct.entrySet()) {
-			System.out.println(e);
-		}
+//		for (Map.Entry<String, String> e : TaxDct.entrySet()) {
+//			System.out.println(e);
+//		}
 
 	}
 
