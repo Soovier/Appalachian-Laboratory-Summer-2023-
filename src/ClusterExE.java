@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class ClusterExE {
 		test.Input_TestData(Integer.parseInt(args[2]), args[1], Directory, "FASTA"); // fasta
 		test.testData(Integer.parseInt(args[2]), Directory, "TAX");
 		test.testData(Integer.parseInt(args[2]), Directory, "FASTA");
-
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
 
@@ -65,7 +63,6 @@ public class ClusterExE {
 
 		try {
 			for (int i = 1; i <= K; i++) {
-//				String trainData_Name = mainDirectory + "\\" + "\\" + i + newFileName + ending;
 				String trainData_Name = i + newFileName + ending;
 				File trainedTaxfile = new File(trainData_Name);
 				if (trainedTaxfile.createNewFile()) {
@@ -100,15 +97,15 @@ public class ClusterExE {
 			FileInputStream fileInputStream;
 			try {
 				FileWriter fw = new FileWriter(createdFile, true);
-				PrintWriter pw = new PrintWriter(fw);
+				BufferedWriter bw = new BufferedWriter(fw);
 				fileInputStream = new FileInputStream(currentFile);
 				byte[] byteValue = new byte[(int) currentFile.length()];
 				fileInputStream.read(byteValue);
 				fileInputStream.close();
 
 				String fileContent = new String(byteValue, "UTF-8");
-				pw.print((fileContent));
-				pw.close();
+				bw.write((fileContent));
+				bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
