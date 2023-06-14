@@ -1,10 +1,9 @@
 
 ADD SimpleSequenceClassification (Repo)
 
-
 python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -h (FIRST)
 
 
-python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -v 1TestAlignments.txt (TEXT ALGIN) -t 1Training_Taxonomy.tax -o 1Test.tax (NEW FILE NAME)
+python3 ~/SimpleSequenceClassification/3_VsearchToMetaxa2.py -v 1TestAlignments.txt (TEXT ALGIN) -t 12S_Combined.tax (ORIGNAL DATA BASE) -o 1Test.tax (NEW FILE NAME)
 
 python3 ./../4_TrimMtxa2IDs.py (Taxonomy Data Base) ${a}.Trmd.txt (NEW FILE OUTPUT)

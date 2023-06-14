@@ -1,1 +1,7 @@
+// git clone https://github.com/Soovier/Appalachian-Laboratory-Summer-2023-
+
 vsearch --usearch_global 1Test_Fasta.fa --db 1Training_Fasta.fa --id 0.70  --maxaccepts 100 --maxrejects 50 --maxhits 1 --gapopen 0TE --gapext 0TE --userout 1TestAlignments.txt --userfields query+target+id+alnlen+mism+opens+qlo+qhi+tlo+thi+evalue+bits+qcov --query_cov 0.8 --threads 28
+
+java VsearchToMetaxa2_3.java -v 1TestAlignments.txt (TEXT ALGIN) -t 12S_Combined.tax (ORIGNAL DATA BASE) -o 1Test.tax (NEW FILE NAME)
+
+java TrimMtxa2IDs_4.java (Taxonomy Data Base) ${a}.Trmd.txt (NEW FILE OUTPUT)

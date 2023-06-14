@@ -1,0 +1,2 @@
+vsearch --usearch_global 1Test_Fasta.fa --db 1Training_Fasta.fa --id 0.70  --maxaccepts 100 --maxrejects 50 --maxhits 1 --gapopen 0TE --gapext 0TE --userout 1TestAlignments.txt --userfields query+target+id+alnlen+mism+opens+qlo+qhi+tlo+thi+evalue+bits+qcov --query_cov 0.8 --threads 28
+
