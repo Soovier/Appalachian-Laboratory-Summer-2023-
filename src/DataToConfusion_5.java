@@ -63,6 +63,7 @@ public class DataToConfusion_5 {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			System.out.println(FalseNegative);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -87,12 +88,12 @@ public class DataToConfusion_5 {
 		}
 
 		if (PredD.length > OrigD.length) {
-			for (int i = PredD.length; i < taxOrder.length; i++) {
+			for (int i = minLength; i < taxOrder.length; i++) {
 				helper.append(taxOrder[i]).append("FP;");
 				FalsePositive += 1;
 			}
 		} else if (PredD.length < OrigD.length) {
-			for (int i = OrigD.length; i < taxOrder.length; i++) {
+			for (int i = minLength; i < taxOrder.length; i++) {
 				helper.append(taxOrder[i]).append("FN;");
 				FalseNegative += 1;
 			}
@@ -103,7 +104,6 @@ public class DataToConfusion_5 {
 			TrueNegative += 1;
 		}
 		fileResultRef.append(helper).append("\n");
-
 	}
 
 }
