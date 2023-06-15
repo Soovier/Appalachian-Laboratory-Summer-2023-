@@ -10,13 +10,13 @@ import java.util.Scanner;
 
 public class DataToConfusion_5 {
 	// Fields //
-	private int TruePositive;
-	private int TrueNegative;
-	private int FalsePositve;
-	private int FalseNegative;
+	public int TruePositive;
+	public int TrueNegative;
+	public int FalsePositive;
+	public int FalseNegative;
 
-	private int TP_Positive;
-	private int TP_Negative;
+	public int TP_Positive;
+	public int TP_Negative;
 
 	HashMap<String, String> originalData = new HashMap<>();
 
@@ -79,25 +79,29 @@ public class DataToConfusion_5 {
 			String OrigAlign = OrigD[i];
 			if (PredAlign.equals(OrigAlign)) {
 				helper.append(taxOrder[i]).append("TPP;");
+				TP_Positive += 1;
 			} else {
 				helper.append(taxOrder[i]).append("TPN;");
+				TP_Negative += 1;
 			}
 		}
 
 		if (PredD.length > OrigD.length) {
 			for (int i = PredD.length; i < taxOrder.length; i++) {
 				helper.append(taxOrder[i]).append("FP;");
+				FalsePositive += 1;
 			}
 		} else if (PredD.length < OrigD.length) {
 			for (int i = OrigD.length; i < taxOrder.length; i++) {
 				helper.append(taxOrder[i]).append("FN;");
+				FalseNegative += 1;
 			}
 		}
 
 		for (int i = minLength; i < taxOrder.length; i++) {
 			helper.append(taxOrder[i]).append("TN;");
+			TrueNegative += 1;
 		}
-
 		fileResultRef.append(helper).append("\n");
 
 	}
