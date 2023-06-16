@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -24,8 +26,8 @@ public class DataToConfusion_5 {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		DataToConfusion_5 test = new DataToConfusion_5();
-		test.AppendData(args[0]);
-		test.confusionMatrix_1(args[1], args[0], args[2]);
+		test.AppendData("12S_Combined.tax");
+		test.confusionMatrix_1("Trmd1.txt", "12S_Combined.tax", "NEWOUTPUTCONFUSION.txt");
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
@@ -100,10 +102,23 @@ public class DataToConfusion_5 {
 			}
 		}
 
-		for (int i = minLength; i < taxOrder.length; i++) {
+		int maxLength = Math.max(PredD.length, OrigD.length);
+		for (int i = maxLength; i < taxOrder.length; i++) {
 			helper.append(taxOrder[i]).append("TN;");
 			TrueNegative += 1;
 		}
+
+		// Fixes any string that exceeds the limit of the taxOrder!
+		List<String> LineageArray = new ArrayList<String>(Arrays.asList(helper.toString().split(";")));
+		if (LineageArray.size() >= 8) {
+			LineageArray.remove(LineageArray.size() - 1);
+			StringBuilder newBuilder = new StringBuilder();
+			String newString = LineageArray.toString().substring(1, (LineageArray.toString().length() - 1))
+					.replace(" ", "").replace(",", ";");
+			newBuilder.append(newString);
+			helper = newBuilder;
+		}
+
 		fileResultRef.append(helper).append("\n");
 	}
 
