@@ -20,11 +20,12 @@ public class DataToConfusion_5 {
 
 	HashMap<String, String> originalData = new HashMap<>();
 
+	// Takes the Original Data, then the predicted Data, then the output file name
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		DataToConfusion_5 test = new DataToConfusion_5();
-		test.AppendData("12S_Combined.tax");
-		test.confusionMatrix_1("Trmd1.txt", "12S_Combined.tax", "Confusion.txt");
+		test.AppendData(args[0]);
+		test.confusionMatrix_1(args[1], args[0], args[2]);
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
