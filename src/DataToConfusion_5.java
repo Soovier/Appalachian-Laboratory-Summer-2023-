@@ -60,7 +60,6 @@ public class DataToConfusion_5 {
 					getType(predictedData, originData, fileResult);
 				}
 			}
-
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
 				writer.write(fileResult.toString());
 			} catch (IOException e) {
