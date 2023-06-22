@@ -81,10 +81,10 @@ public class DataToConfusion_5 {
 			String PredAlign = PredD[i];
 			String OrigAlign = OrigD[i];
 			if (PredAlign.equals(OrigAlign)) {
-				helper.append(taxOrder[i]).append("TPP;");
+				helper.append(taxOrder[i]).append("TP+;");
 				TP_Positive += 1;
 			} else {
-				helper.append(taxOrder[i]).append("TPN;");
+				helper.append(taxOrder[i]).append("TP-;");
 				TP_Negative += 1;
 			}
 		}
