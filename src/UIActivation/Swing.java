@@ -21,10 +21,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import Cluster.ClusterExE;
 
 @SuppressWarnings("serial")
 public class Swing extends JPanel {
@@ -33,11 +36,13 @@ public class Swing extends JPanel {
 	private int K_Amount;
 	private boolean Fixed_Amount;
 	public boolean PromptError;
+	public boolean Train_Testing;
 
 	JFrame frame;
 	JPanel centerPanel;
 	JPanel gridPanel;
 
+	// Setting up the layout for the whole UI and setting the default value type
 	{
 		Fixed_Amount = false;
 		K_Amount = 5;
@@ -52,17 +57,19 @@ public class Swing extends JPanel {
 			}
 
 		};
-		gridPanel = new JPanel(new GridLayout(5, 1, 0, 10));
+		gridPanel = new JPanel(new GridLayout(7, 1, 0, 10));
 		gridPanel.setBackground(new Color(19, 108, 150));
 		frame.add(centerPanel, BorderLayout.CENTER);
 		frame.add(gridPanel, BorderLayout.EAST);
 	}
+
 
 	public static void main(String[] args) {
 		Swing test = new Swing();
 		test.Settings();
 	}
 
+	// THE MAIN OF THIS CLASS
 	public void Settings() {
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -106,30 +113,44 @@ public class Swing extends JPanel {
 		gridPanel.add(b5);
 		b5.setBackground(Color.black);
 		b5.setForeground(Color.white);
+		JButton b6 = new JButton("Set K Fold");
+		gridPanel.add(b6);
+		b6.setBackground(Color.black);
+		b6.setForeground(Color.green);
+		JButton b7 = new JButton("Create Test and Train Data");
+		gridPanel.add(b7);
+		b7.setBackground(Color.black);
+		b7.setForeground(Color.red);
 
 		b1.setFont(new Font("Times New Roman\r\n", Font.BOLD, 14));
 		b2.setFont(new Font("Times New Roman\r\n", Font.BOLD, 14));
 		b3.setFont(new Font("Times New Roman\r\n", Font.BOLD, 14));
-		b4.setFont(new Font("Baskerville Old Face\r\n" + "", Font.BOLD, 10));
-		b5.setFont(new Font("Baskerville Old Face\r\n" + "", Font.BOLD, 10));
+		b4.setFont(new Font("Baskerville Old Face" + "", Font.BOLD, 10));
+		b5.setFont(new Font("Baskerville Old Face" + "", Font.BOLD, 10));
+		b6.setFont(new Font("Baskerville Old Face" + "", Font.BOLD, 10));
+		b7.setFont(new Font("Baskerville Old Face" + "", Font.BOLD, 10));
 
 		b1.setFocusable(false);
 		b2.setFocusable(false);
 		b3.setFocusable(false);
 		b4.setFocusable(false);
 		b5.setFocusable(false);
+		b6.setFocusable(false);
+		b7.setFocusable(false);
 		
 		b1.addActionListener(e -> {
-			Boolean ifRan = HasRequirments();
+			Boolean ifRan = HasRequirments("Aligment Data Added");
+
 		});
 		
 		b2.addActionListener(e -> {
-			Boolean ifRan = HasRequirments();
+			Boolean ifRan = HasRequirments("Annotation Data Added!");
 		});
 
 		b3.addActionListener(e -> {
-			Boolean ifRan = HasRequirments();
+			Boolean ifRan = HasRequirments("Trimmed Annotation Data Added!");
 		});
+
 
 		b4.addActionListener(e -> {
 			String taxfileName = JOptionPane.showInputDialog("Enter File Name:", TaxonomyFile);
@@ -145,6 +166,34 @@ public class Swing extends JPanel {
 			}
 		});
 
+		b6.addActionListener(e -> {
+			String amount = JOptionPane.showInputDialog("Enter K Amount:", K_Amount);
+			try {
+				K_Amount = Integer.valueOf(amount);
+				String soundFilePath = "UI-Items/Conformation.aifc";
+				playSound(soundFilePath);
+			} catch (Exception e2) {
+				if (amount.equals("null")) {
+					e2.printStackTrace();
+				} else {
+					String soundFilePath = "UI-Items/ErrorSound.aifc";
+					playSound(soundFilePath);
+					JOptionPane.showMessageDialog(null, "Invalid Entry", "Error: 201", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		b7.addActionListener(e -> {
+			Boolean ifRan = HasRequirments("Test and Train Data Created!");
+			if (ifRan) {
+				ClusterExE cluster = new ClusterExE();
+				cluster.Input_TestData(K_Amount, TaxonomyFile, "", "TAX");
+				cluster.Input_TestData(K_Amount, FastaFile, "", "FASTA");
+				cluster.testData(K_Amount, "", "TAX");
+				cluster.testData(K_Amount, "", "FASTA");
+			}
+		});
+
 	}
 
 	/**
@@ -152,26 +201,27 @@ public class Swing extends JPanel {
 	 * checks for errors
 	 */
 
-	@SuppressWarnings("static-access")
-	public boolean HasRequirments() {
+	public boolean HasRequirments(String sucessMessage) {
 		String soundFilePath = "UI-Items/ErrorSound.aifc";
-		JOptionPane pane = new JOptionPane();
 		if (TaxonomyFile.equals("") && FastaFile.equals("")) {
 			playSound(soundFilePath);
 			String Error = "Please Import Taxonomy Database and Fasta Database.";
-			pane.showMessageDialog(null, Error, "Error: 101", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, Error, "Error: 101", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else if (TaxonomyFile.equals("") && !FastaFile.equals("")) {
 			playSound(soundFilePath);
 			String Error = "Please Import Taxonomy Database.";
-			pane.showMessageDialog(null, Error, "Error: 102", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, Error, "Error: 102", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else if (!TaxonomyFile.equals("") && FastaFile.equals("")) {
 			playSound(soundFilePath);
 			String Error = "Please Import Fasta Database.";
-			pane.showMessageDialog(null, Error, "Error: 103", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, Error, "Error: 103", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		String corret_music = "UI-Items/Conformation.aifc";
+		playSound(corret_music);
+		JOptionPane.showMessageDialog(null, sucessMessage, "Succession: 101", JOptionPane.INFORMATION_MESSAGE);
 		return true;
 	}
 
@@ -183,7 +233,7 @@ public class Swing extends JPanel {
 		frame.add(textField, BorderLayout.NORTH);
 
 		JButton button = new JButton("Browse Directory");
-		button.setFont(new Font("Times New Roman\r\n" + "" + "", Font.LAYOUT_RIGHT_TO_LEFT, 12));
+		button.setFont(new Font("Times New Romana" + "" + "", Font.LAYOUT_RIGHT_TO_LEFT, 12));
 
 		frame.add(button, BorderLayout.SOUTH);
 
@@ -202,7 +252,40 @@ public class Swing extends JPanel {
 		});
 	}
 
-	public static void playSound(String soundFilePath) {
+	public class NotificationPanel extends JPanel {
+		private JLabel messageLabel;
+
+		public NotificationPanel(String message) {
+			messageLabel = new JLabel(message);
+			add(messageLabel);
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.black);
+			frame.add(panel);
+			panel.add(messageLabel);
+		}
+	}
+
+	private int notificationOffset = 0;
+
+	public void showNotification(String message) {
+		NotificationPanel notification = new NotificationPanel(message);
+		notification.setLocation(0,
+				frame.getPreferredSize().height - notification.getPreferredSize().height - notificationOffset);
+		add(notification);
+		notificationOffset += notification.getPreferredSize().height;
+		revalidate();
+		repaint();
+
+		// Set a timer to remove the notification after a few seconds
+		new javax.swing.Timer(3000, e -> {
+			remove(notification);
+			notificationOffset -= notification.getPreferredSize().height;
+			revalidate();
+			repaint();
+		}).start();
+	}
+
+	public void playSound(String soundFilePath) {
 		try {
 			File soundFile = new File(soundFilePath);
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
