@@ -32,6 +32,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import Cluster.ClusterExE;
 
@@ -42,6 +44,8 @@ public class Swing extends JPanel {
 	private static int K_Amount;
 	public static boolean Test_Train_Made;
 	public static HashMap<String, String> hashMap;
+	public JTextField searchField;
+//	mainPanel.add(searchField, BorderLayout.NORTH);
 
 	JPanel logsPanel;
 	JFrame frame;
@@ -51,6 +55,7 @@ public class Swing extends JPanel {
 
 	// Setting up the layout for the whole UI and setting the default value type
 	{
+		this.searchField = new JTextField(20);
 		this.logsPanel = new JPanel(new FlowLayout());
 		hashMap = new HashMap<>();
 		Test_Train_Made = false;
@@ -99,6 +104,8 @@ public class Swing extends JPanel {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+		mainPanel.add(searchField, BorderLayout.NORTH);
+
 		// Add the JLabel
 		JLabel titleLabel = new JLabel("Logs");
 		titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
@@ -113,6 +120,36 @@ public class Swing extends JPanel {
 		// Add a vertical glue to push the logsPanel to the bottom
 		mainPanel.add(Box.createVerticalGlue());
 		mainPanel.add(scrollPane);
+
+		searchField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				search();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				search();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				search();
+			}
+
+			private void search() {
+				String query = searchField.getText().toLowerCase();
+				for (Component component : logsPanel.getComponents()) {
+					if (component instanceof JLabel) {
+						JLabel label = (JLabel) component;
+						String labelText = label.getText().toLowerCase();
+						label.setVisible(labelText.contains(query));
+					}
+				}
+				logsPanel.revalidate();
+				logsPanel.repaint();
+			}
+		});
 
 		frame.add(mainPanel, BorderLayout.WEST);
 		frame.pack();
@@ -233,7 +270,7 @@ public class Swing extends JPanel {
 			Test_Train_Made = true;
 			Boolean ifRan = HasRequirments("Test and Train Data Created!");
 			if (ifRan) {
-				ClusterExE cluster = new ClusterExE(logsPanel, hashMap);
+				ClusterExE cluster = new ClusterExE(logsPanel, hashMap, frame);
 				cluster.Input_TestData(K_Amount, TaxonomyFile, "", "TAX");
 				cluster.Input_TestData(K_Amount, FastaFile, "", "FASTA");
 				cluster.testData(K_Amount, "", "TAX");

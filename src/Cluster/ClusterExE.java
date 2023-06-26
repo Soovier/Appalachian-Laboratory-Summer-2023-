@@ -1,6 +1,8 @@
 package Cluster;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,15 +26,17 @@ import javax.swing.JPanel;
 public class ClusterExE {
 	private JPanel logsPanel;
 	private HashMap<String, String> hashMap;
+	private JFrame frame;
 
 	public ClusterExE() {
 
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ClusterExE(JPanel panel, HashMap map) {
+	public ClusterExE(JPanel panel, HashMap map, JFrame frame) {
 		this.logsPanel = panel;
 		this.hashMap = map;
+		this.frame = frame;
 	}
 
 	public static void main(String[] args) {
@@ -207,6 +212,14 @@ public class ClusterExE {
 		v1.setFont(new Font("Century Gothic", Font.BOLD, 9));
 		logsPanel.add(v1);
 		hashMap.put(key, val);
+
+		int contentHeight = 0;
+		for (Component component : logsPanel.getComponents()) {
+			contentHeight += component.getPreferredSize().height;
+		}
+
+		// Set the preferred height of the logsPanel
+		logsPanel.setPreferredSize(new Dimension(200, Math.max(contentHeight, frame.getPreferredSize().height)));
 
 		logsPanel.revalidate();
 		logsPanel.repaint();
