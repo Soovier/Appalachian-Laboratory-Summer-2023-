@@ -1,4 +1,7 @@
 package Cluster;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,12 +9,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 // This was made by Stephen Osunkunle 2023 Internship
 // Creates Files In The SAME DIRECTORY (RELATIVE) IT WAS FIRED IN!!
 public class ClusterExE {
+	private JPanel logsPanel;
+	private HashMap<String, String> hashMap;
+
+	public ClusterExE() {
+
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ClusterExE(JPanel panel, HashMap map) {
+		this.logsPanel = panel;
+		this.hashMap = map;
+	}
 
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
@@ -68,6 +89,7 @@ public class ClusterExE {
 				File trainedTaxfile = new File(trainData_Name);
 				if (trainedTaxfile.createNewFile()) {
 					System.out.printf("%s Data Has Been Made! \n", trainData_Name);
+					AddToHashMap(trainData_Name, getCurrentTimeString());
 					enterFileInFile(trainData_Name, K, mainDirectory, i, Type);
 				} else {
 					System.out.printf("%s Was Already Created \n", trainData_Name);
@@ -94,6 +116,7 @@ public class ClusterExE {
 			}
 
 			String currString = i + currentFileString + ending;
+			AddToHashMap(currString, getCurrentTimeString());
 			File currentFile = new File(currString);
 			FileInputStream fileInputStream;
 			try {
@@ -175,6 +198,24 @@ public class ClusterExE {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void AddToHashMap(String key, String val) {
+		JLabel v1 = new JLabel(key + " | : " + val);
+		v1.setBackground(Color.gray);
+		v1.setForeground(Color.BLACK);
+		v1.setFont(new Font("Century Gothic", Font.BOLD, 9));
+		logsPanel.add(v1);
+		hashMap.put(key, val);
+
+		logsPanel.revalidate();
+		logsPanel.repaint();
+	}
+
+	public static String getCurrentTimeString() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		return now.format(formatter);
 	}
 
 }

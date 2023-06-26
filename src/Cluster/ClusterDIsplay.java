@@ -75,7 +75,7 @@ public class ClusterDIsplay {
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (Map.Entry<String, String> e : confusData.entrySet()) {
 				if (newdata.containsKey(e.getKey())) {
-					String header = String.format("%-20s", "HEADER: " + e.getKey());
+					String header = String.format("%-20s", e.getKey());
 					String value = String.format("%-4s", adjustValue(e.getValue()));
 					String percentId = String.format("Percent ID: %-15s", newdata.get(e.getKey()));
 					bw.write(header + " | " + (value) + " | " + percentId + "\n");

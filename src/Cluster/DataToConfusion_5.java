@@ -33,6 +33,10 @@ public class DataToConfusion_5 {
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
 
+	public double getFDR() {
+		return TP_Negative + (TP_Positive + TP_Negative);
+	}
+
 	public void AppendData(String orignalFile) {
 		try {
 			Scanner UIS = new Scanner(new File(orignalFile));
