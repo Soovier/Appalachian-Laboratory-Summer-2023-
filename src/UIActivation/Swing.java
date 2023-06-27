@@ -104,6 +104,7 @@ public class Swing extends JPanel {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+		searchField.setText("Search In Logs");
 		mainPanel.add(searchField, BorderLayout.NORTH);
 
 		// Add the JLabel
