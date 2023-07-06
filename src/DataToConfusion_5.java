@@ -26,8 +26,11 @@ public class DataToConfusion_5 {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		DataToConfusion_5 test = new DataToConfusion_5();
-		test.AppendData("12S_Combined.tax");
-		test.confusionMatrix_1("Trmd1.txt", "12S_Combined.tax", "NEWOUTPUTCONFUSION.txt");
+		test.AppendData(args[1]);
+		test.confusionMatrix_1(args[0], args[1], args[2]);
+		// arg[0] = TRIMMED TAXONOMY FILE
+		// arg[1] = ORIGINAL TAXONOMY DATABASE
+		// arg[2] = OUTPUT FILE NAME
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
