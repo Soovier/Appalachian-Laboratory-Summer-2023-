@@ -1,5 +1,4 @@
 package UIActivation;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -37,7 +36,6 @@ import javax.swing.event.DocumentListener;
 
 import Cluster.ClusterExE;
 
-@SuppressWarnings("serial")
 public class Swing extends JPanel {
 	private static String TaxonomyFile = "";
 	private static String FastaFile = "";
@@ -45,7 +43,6 @@ public class Swing extends JPanel {
 	public static boolean Test_Train_Made;
 	public static HashMap<String, String> hashMap;
 	public JTextField searchField;
-//	mainPanel.add(searchField, BorderLayout.NORTH);
 
 	JPanel logsPanel;
 	JFrame frame;

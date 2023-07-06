@@ -27,8 +27,13 @@ public class DataToConfusion_5 {
 	public static void main(String[] args) {
 		long time = System.currentTimeMillis();
 		DataToConfusion_5 test = new DataToConfusion_5();
-		test.AppendData("12S_Combined.tax");
-		test.confusionMatrix_1("Trmd1.txt", "12S_Combined.tax", "NEWOUTPUTCONFUSION.txt");
+		test.AppendData(args[0]);
+		test.confusionMatrix_1(args[1], args[0], args[2]);
+
+		/*
+		 * Arugment 1: ORIGINAL DATA BASE TAXONOMY FILE! Arugment 2: TRIMED TAXONOMY
+		 * FILE! Arugment 3: NEW FILE OUTPUT NAME!
+		 */
 
 		System.out.println(System.currentTimeMillis() - time + " ms");
 	}
@@ -114,7 +119,7 @@ public class DataToConfusion_5 {
 
 		// Fixes any string that exceeds the limit of the taxOrder!
 		List<String> LineageArray = new ArrayList<String>(Arrays.asList(helper.toString().split(";")));
-		if (LineageArray.size() >= 8) {
+		while (LineageArray.size() >= 8) {
 			LineageArray.remove(LineageArray.size() - 1);
 			StringBuilder newBuilder = new StringBuilder();
 			String newString = LineageArray.toString().substring(1, (LineageArray.toString().length() - 1))
